@@ -1,5 +1,8 @@
-import Entity
+from models.entity import Entity
+from dataclasses import dataclass
 
+@dataclass
 class Substance(Entity):
-    name = ''
-    rating = ''
+
+    name: str
+    rating: int
