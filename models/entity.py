@@ -15,7 +15,7 @@ class Entity(object):
     @classmethod
     def fields(cls):
         return [name for name, item in inspect.getmembers(cls,
-                lambda x: not inspect.isfunction(x)) if not
+                lambda x: not inspect.ismethod(x)) if not
                 (name.endswith('__') and name.startswith('__'))]
 
     def __repr__(self):
