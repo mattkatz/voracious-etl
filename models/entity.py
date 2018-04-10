@@ -1,23 +1,15 @@
 import inspect
-from uuid import uuid4
+from dataclasses import dataclass, field, fields
+from uuid import UUID, uuid4
 
-
+@dataclass
 class Entity(object):
     ''' This is the base entity that all others can inherit from'''
-    id = 0
-    code = ''
-
-    def __init__(self, code):
-        self.code = code
-        self.id = uuid4()
+    # id: UUID = field(default_factory=uuid4())
+    id: int
+    code: str 
 
 
     @classmethod
-    def fields(cls):
-        return [name for name, item in inspect.getmembers(cls,
-                lambda x: not inspect.ismethod(x)) if not
-                (name.endswith('__') and name.startswith('__'))]
-
-    def __repr__(self):
-        return f'Entity: {self.code}'
-
+    def field_names(cls):
+        return [field.name for field in fields(cls)]
