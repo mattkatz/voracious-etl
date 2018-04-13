@@ -7,6 +7,6 @@ class TestVoracious:
         assert 1 == 1
 
     def test_home_says_hello(self):
-        wb = WebApi()
+        wb = WebApi(models_path='tests/dummy_models')
         # from context import voracious.app.WebApi as wb
         assert wb.home() == "hello"
