@@ -1,12 +1,11 @@
+import os
+import tempfile
 import context
-from voracious.app import WebApi
+import voracious.app
 
 
-class TestVoracious:
-    def test_tests_are_working(self):
-        assert 1 == 1
+def test_tests_are_working():
+    assert 1 == 1
 
-    def test_home_says_hello(self):
-        wb = WebApi(models_path='tests/dummy_models')
-        # from context import voracious.app.WebApi as wb
-        assert wb.home() == "hello"
+def test_home_says_hello():
+    assert home() == "hello"
