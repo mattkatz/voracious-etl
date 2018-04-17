@@ -35,7 +35,7 @@ class Testem:
 
     def test_get_models_from_file(self):
         path = Path(__file__).parent / 'dummy_models' / 'dummies.py'
-        models = em.get_models_from_file(path.resolve())
+        models = em.get_models_from_file(path)
         assert len(models) == 2
 
     def test_get_models_from_dir(self):

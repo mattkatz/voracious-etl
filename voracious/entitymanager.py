@@ -6,6 +6,7 @@ from pathlib import Path
 import inspect
 import importlib
 import os
+import sys
 
 
 class EntityManager(object):
@@ -18,8 +19,10 @@ class EntityManager(object):
            classes available
         '''
         self.models_path = Path(models_path)
+        print(f'getting models from {models_path}')
         self.models = []
         # find files in models directory
+        # todo - dedupe list and make it unique
         self.models = self.get_models_from_dir(self.models_path)
 
     @classmethod
@@ -27,20 +30,29 @@ class EntityManager(object):
         '''returns a Module from a pathlib path or returns None if there's
            no module there
         '''
+        print(f'getting modules from {path}')
         if not path.exists(): 
             print(f'{path} does not exist')
-            return None 
+            return None
+        if cls.is_dunder(path.stem):
+            # ignore __pycache__ and __init__.py and __main__ and the like
+            return None
 
         # lets get the path from here to there
         strpath = os.path.relpath(path)
-        path = Path(strpath)
+        relpath = Path(strpath)
+        print(f'relpath = {relpath}')
         # transform to path notation
-        module_parts = list(path.parts)
-        module_parts[-1] = path.stem
+        module_parts = list(relpath.parts)
+        module_parts[-1] = relpath.stem
         module_path = '.'.join(module_parts)
+        print(f'trying {module_path}')
         try:
-            return importlib.import_module(module_path )
+            # return importlib.import_module(module_path )
+            return importlib.import_module(path.stem)
         except ModuleNotFoundError as e:
+            print(os.getcwd())
+            print(sys.path)
             print(e)
             return None
 
@@ -48,6 +60,7 @@ class EntityManager(object):
     def get_models_from_path(cls, models_path):
         '''returns model classes found recusively in a Path'''
         models = []
+        if cls.is_dunder(models_path.stem): return models
         if models_path.is_dir():
             models.extend(cls.get_models_from_dir(models_path))
         models.extend(cls.get_models_from_file(models_path))
@@ -58,6 +71,7 @@ class EntityManager(object):
         '''Returns an array of all dataclass models in a file '''
         models = []
         module = cls.get_module_from_path(file_path)
+        print(module)
         if module:
             models.extend(cls.get_classes_from_module(module))
         return models
@@ -67,6 +81,7 @@ class EntityManager(object):
         '''recursively gets all dataclass models from a directory'''
         models = []
         for item in dir_path.iterdir():
+            print(item)
             models.extend(cls.get_models_from_path(item))
         return models
 
@@ -77,6 +92,7 @@ class EntityManager(object):
 
            Accepts a Module from importlib
         '''
+        print(f'getting classes from {module}')
         classes = []
         for name in dir(module):
             obj = getattr(module, name)
