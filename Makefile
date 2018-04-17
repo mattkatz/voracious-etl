@@ -1,5 +1,5 @@
 run:
-	FLASK_APP=voracious/app.py pipenv run flask run
+	cd voracious; FLASK_APP=app.py pipenv run flask run
 
 test:
-	pipenv run py.test tests
+	pipenv run py.test 
