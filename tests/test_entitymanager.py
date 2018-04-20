@@ -6,6 +6,14 @@ from voracious.entitymanager import EntityManager as em
 
 
 class Testem:
+    def test_dont_get_models_from_dunders(self):
+        # test a path that has a dunder fails
+        assert 0 == len(em.get_models_from_path(Path('foo/__bar__.py')))
+        assert 0 == len(em.get_models_from_path(Path('foo/__pycache')))
+
+    def test_dont_get_models_from_non_py_files(self):
+        assert 0 == len(em.get_models_from_path(Path('foo.py.swp')))
+
     def test_get_module_from_path(self):
         # test a path that doesn't have a module
         assert em.get_module_from_path(Path('foo')) is None

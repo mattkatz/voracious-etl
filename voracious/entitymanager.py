@@ -23,7 +23,7 @@ class EntityManager(object):
         self.models = []
         # find files in models directory
         # todo - dedupe list and make it unique
-        self.models = self.get_models_from_dir(self.models_path)
+        self.models = self.get_models_from_path(self.models_path)
 
     @classmethod
     def get_module_from_path(cls, path):
@@ -70,10 +70,11 @@ class EntityManager(object):
     def get_models_from_file(cls, file_path):
         '''Returns an array of all dataclass models in a file '''
         models = []
-        module = cls.get_module_from_path(file_path)
-        print(module)
-        if module:
-            models.extend(cls.get_classes_from_module(module))
+        if not cls.is_dunder(file_path.name) and file_path.suffix == '.py':
+            module = cls.get_module_from_path(file_path)
+            print(module)
+            if module:
+                models.extend(cls.get_classes_from_module(module))
         return models
 
     @classmethod
