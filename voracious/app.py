@@ -5,7 +5,7 @@ from voracious.entitymanager import EntityManager
 import os
 import sys
 from pathlib import Path
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 sys.path.append(Path(__file__).parent)
 sys.path.append('..')
 sys.path.append('../models')
@@ -20,6 +20,11 @@ em = EntityManager(models_path=mp.resolve())
 @app.route('/')
 def home():
     return "hello"
+
+
+@app.route('/models/')
+def models():
+    return render_template('models.html', models=em.models)
 
 # TODO get all the models listed in models
 @app.route('/api/models/')

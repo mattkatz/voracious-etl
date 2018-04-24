@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Models List</title>
+</head>
+<body>
+  <ul class="models">
+  {% for model in models %}
+    <li>{{ model.__name__ |e }}</li>
+  {% endfor %}
+  <ul>
+</body>
+</html>
