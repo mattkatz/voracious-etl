@@ -6,8 +6,8 @@
 </head>
 <body>
   <ul class="models">
-  {% for model in models %}
-    <li>{{ model.__name__ |e }}</li>
+  {% for name, model in models.items() %}
+    <li>{{ name |e }}</li>
   {% endfor %}
   <ul>
 </body>

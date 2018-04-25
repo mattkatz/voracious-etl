@@ -20,10 +20,9 @@ class EntityManager(object):
         '''
         self.models_path = Path(models_path)
         print(f'getting models from {models_path}')
-        self.models = []
         # find files in models directory
-        # todo - dedupe list and make it unique
-        self.models = self.get_models_from_path(self.models_path)
+        self.models = {model.__name__: model for model in 
+                self.get_models_from_path(self.models_path)}
 
     @classmethod
     def get_module_from_path(cls, path):

@@ -79,6 +79,7 @@ class Testem:
 
     def test_entity_manager_works(self):
         manager = em(models_path=Path('tests/dummy_models'))
-        assert len(manager.models) == 2
+        assert len(manager.models.keys()) == 2
+        # test that a plain old string works
         manager = em(models_path='tests/dummy_models')
-        assert len(manager.models) == 2
+        assert len(manager.models.keys()) == 2
