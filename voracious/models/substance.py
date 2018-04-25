@@ -1,4 +1,4 @@
-from models.entity import Entity
+from voracious.models.entity import Entity
 from dataclasses import dataclass
 
 @dataclass

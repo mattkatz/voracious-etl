@@ -6,13 +6,11 @@ import os
 import sys
 from pathlib import Path
 from flask import Flask, jsonify, render_template
-sys.path.append(Path(__file__).parent)
-sys.path.append('..')
-sys.path.append('../models')
+sys.path.append(str(Path(__file__).parent))
 
 app = Flask(__name__)
 print(os.getcwd())
-mp = Path(__file__) / '..'/ '..' / 'models'
+mp = Path(__file__).parent / 'models'
 em = EntityManager(models_path=mp.resolve())
 
 

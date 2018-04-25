@@ -1,6 +1,6 @@
 import context
-from models.entity import Entity
-from models.substance import Substance
+from voracious.models.entity import Entity
+from voracious.models.substance import Substance
 
 
 class TestEntity:

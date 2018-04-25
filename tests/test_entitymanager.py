@@ -18,14 +18,15 @@ class Testem:
         # test a path that doesn't have a module
         assert em.get_module_from_path(Path('foo')) is None
 
+        path = Path(__file__)
+
         # test this file is a module
-        mod = em.get_module_from_path(Path(__file__)) 
-        print(mod)
+        mod = em.get_module_from_path(path)
         assert mod
         assert len([name for name in dir(mod) if not em.is_dunder(name)]) > 0
 
         # test we get a module from a directory
-        assert em.get_module_from_path(Path('models'))
+        assert em.get_module_from_path(path.parent)
 
     def test_get_models_from_path(self):
         # test with no models
