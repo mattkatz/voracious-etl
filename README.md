@@ -14,4 +14,4 @@ Security should be handled at the model level in code.
 
 Forked applications should be able to facade the main application for storage to present a coherent whole.
 
-currently <a href="https://travis-ci.org/mattkatz/voracious-etl"><img src="https://travis-ci.org/mattkatz/voracious-etl.svg?branch=master" alt="build:passed"> on Travis-CI</a>
+[![Build Status](https://travis-ci.org/mattkatz/voracious-etl.svg?branch=master)](https://travis-ci.org/mattkatz/voracious-etl)
