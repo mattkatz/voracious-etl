@@ -23,9 +23,7 @@ def test_home_says_hello(client):
 
 def test_web_index(client):
     with patch('voracious.app.em') as mock_em:
-        mock_em.models = []
-        mock_em.models.append(Dumb)
-        mock_em.models.append(Dumber)
+        mock_em.models = {'Dumb': Dumb, 'Dumber': Dumber}
         rv = client.get('/models/')
         assert b'Dumb' in rv.data
         assert b'Dumber' in rv.data
@@ -33,9 +31,7 @@ def test_web_index(client):
 
 def test_api_index(client):
     with patch('voracious.app.em') as mock_em:
-        mock_em.models = []
-        mock_em.models.append(Dumb)
-        mock_em.models.append(Dumber)
+        mock_em.models = {'Dumb': Dumb, 'Dumber': Dumber}
         rv = client.get('/api/models/')
         assert b'Dumb' in rv.data
         assert b'Dumber' in rv.data

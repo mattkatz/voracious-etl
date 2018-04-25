@@ -24,17 +24,11 @@ def home():
 def models():
     return render_template('models.html', models=em.models)
 
-# TODO get all the models listed in models
 @app.route('/api/models/')
 def model_index():
     '''Return all the models supported'''
-    model_list = [model.__name__ for model in em.models]
-    return jsonify({'entities': model_list})
+    return jsonify({'entities': [key for key in em.models.keys()]})
 
-    # TODO for each model, get all the properties and attributes of the module. 
-    # TODO maybe we should get all the ones decorated with some decorator?
-    # TODO or should we just ignore only ones decorated with a decorator?
-    # 
 
 if __name__ == '__main__':
-    app.run(debug=true)
+    app.run(debug=True)
