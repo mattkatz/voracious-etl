@@ -32,6 +32,6 @@ def test_web_index(client):
 def test_api_index(client):
     with patch('voracious.app.em') as mock_em:
         mock_em.models = {'Dumb': Dumb, 'Dumber': Dumber}
-        rv = client.get('/api/models/')
+        rv = client.get('/api/entities/')
         assert b'Dumb' in rv.data
         assert b'Dumber' in rv.data

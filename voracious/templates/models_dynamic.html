@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>entities List</title>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+<script>
+function get_entities(event){
+  console.log('getting entities');
+  fetch('/api/entities/')
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(entity_json){
+      console.log('render the entities');
+      console.log(entity_json);
+      render_at_element('root', render_entities, entity_json);
+    })
+}
+function render_at_element(elementId,renderfunc,render_data){
+  console.log(`rendering at ${elementId}`);
+  node = document.getElementById(elementId);
+  html = renderfunc(render_data);
+  console.log(html);
+  node.innerHTML = html;
+}
+function render_entities(entities_json){
+  console.log('rendering entities');
+  entities_str = '';
+  for (entity of entities_json.entities){
+    entities_str += render_entity(entity);
+  }
+  return `<ul id='entities'>${entities_str}</ul>`;
+}
+function render_entity(entity_json){
+  console.log('render a entity');
+  return '<li>' + entity_json + '</li>';
+}
+document.addEventListener("DOMContentLoaded", get_entities);
+</script>
+</html>
