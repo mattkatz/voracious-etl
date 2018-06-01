@@ -1,6 +1,6 @@
 import context
 import pytest
-from voracious.app import app
+from voracious.app import app, EntityManager
 from unittest.mock import patch
 from tests.dummy_models.dummies import Dumb, Dumber
 
@@ -31,7 +31,8 @@ def test_web_index(client):
 
 def test_api_index(client):
     with patch('voracious.app.em') as mock_em:
-        mock_em.models = {'Dumb': Dumb, 'Dumber': Dumber}
+        mock_em.models = [EntityManager.get_struct_from_type(Dumb),
+                          EntityManager.get_struct_from_type(Dumber)]
         rv = client.get('/api/entities/')
         assert b'Dumb' in rv.data
         assert b'Dumber' in rv.data

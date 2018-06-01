@@ -21,8 +21,17 @@ class EntityManager(object):
         self.models_path = Path(models_path)
         print(f'getting models from {models_path}')
         # find files in models directory
-        self.models = {model.__name__: model for model in 
-                self.get_models_from_path(self.models_path)}
+        self.models = [self.get_struct_from_type(model) for model in 
+                self.get_models_from_path(self.models_path)]
+
+    @classmethod
+    def get_struct_from_type(cls, entity_type):
+        ''' returns a data representation of a type
+        '''
+        # expects a dataclass field so...
+        name = entity_type.__name__
+        fields = [fieldname for fieldname, field in  entity_type.__dataclass_fields__.items()]
+        return {'name':name, 'fields': fields}
 
     @classmethod
     def get_module_from_path(cls, path):

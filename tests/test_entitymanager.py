@@ -79,7 +79,19 @@ class Testem:
 
     def test_entity_manager_works(self):
         manager = em(models_path=Path('tests/dummy_models'))
-        assert len(manager.models.keys()) == 2
+        assert len(manager.models) == 2
         # test that a plain old string works
         manager = em(models_path='tests/dummy_models')
-        assert len(manager.models.keys()) == 2
+        assert len(manager.models) == 2
+
+    def test_get_struct_from_type(self):
+        from dataclasses import dataclass
+        @dataclass
+        class Foo:
+            bar: int
+            baz: str
+
+        struct = em.get_struct_from_type(Foo)
+        assert struct['name'] == 'Foo'
+        assert len(struct['fields']) == 2
+

@@ -37,7 +37,7 @@ function render_entities(entities_json){
 }
 function render_entity(entity_json){
   console.log('render a entity');
-  return '<li>' + entity_json + '</li>';
+  return '<li>' + entity_json.name + '</li>';
 }
 document.addEventListener("DOMContentLoaded", get_entities);
 </script>

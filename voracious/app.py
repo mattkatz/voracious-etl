@@ -28,7 +28,7 @@ def models():
 def model_index():
     '''Return all the entities supported'''
     # return jsonify({'entities': [key for key in em.models.keys()]})
-    return jsonify({'entities': [name for name, val in em.models.items()]})
+    return jsonify({'entities':em.models})
 
 
 @app.route('/models_dynamic/')
