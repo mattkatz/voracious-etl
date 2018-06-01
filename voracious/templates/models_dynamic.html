@@ -37,7 +37,17 @@ function render_entities(entities_json){
 }
 function render_entity(entity_json){
   console.log('render a entity');
-  return '<li>' + entity_json.name + '</li>';
+  return '<li class="entity">' + entity_json.name + render_entity_details(entity_json) + '</li>';
+}
+function render_entity_details(entity_json){
+  fields_str = '<ul class="fields">';
+  for (field of entity_json.fields){
+    fields_str += render_field(field);
+  }
+  return fields_str + "</ul>";
+}
+function render_field(field){
+  return `<li class='field'>${field}</li>`
 }
 document.addEventListener("DOMContentLoaded", get_entities);
 </script>
